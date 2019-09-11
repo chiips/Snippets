@@ -35,6 +35,8 @@ The signup handler currently logs in users too by administering a JWT. This hand
 
 This improvement would require the addition of an email client, ideally included in the server struct for the signup handler to easily access.
 
+An email client would also be necessary for handling forgotten passwords with a similar workflow as signing up.
+
 ### JWT
 The API's JWTs are currently created using an HMAC signing method which requires a single key for both signing and verifying JWTs.
 
