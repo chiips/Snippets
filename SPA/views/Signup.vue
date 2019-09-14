@@ -102,8 +102,8 @@ export default {
           email: this.email,
           password: this.confirmPassword
         })
-        .then(res => {
-          if (res.status == "200") {
+        .then(response => {
+          if (response.status == 200) {
             //on success log in the user and redirect to home
             let token = this.$cookie.get("token-hp");
             let id = JSON.parse(window.atob(token.split(".")[1])).id; //split token, get payload (position [1]), b64 decode, parse to JSON, grab id

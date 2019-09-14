@@ -62,7 +62,9 @@ export default {
       this.$axios
         .get(`/api/profile/${id}`)
         .then(response => {
-          this.currentUser = response.data;
+          if (response.status == 200) {
+            this.currentUser = response.data;
+          }
         })
         .catch(err => {
           if (err.response) {
@@ -79,7 +81,9 @@ export default {
       this.$axios
         .get(`/api/posts/${id}`)
         .then(response => {
-          this.posts = response.data;
+          if (response.status == 200) {
+            this.posts = response.data;
+          }
         })
         .catch(err => {
           if (err.response) {
@@ -104,7 +108,9 @@ export default {
           this.$axios
             .get(`/api/posts/${id}?prev=${prevDate}`)
             .then(response => {
-              this.posts = this.posts.concat(response.data);
+              if (response.status == 200) {
+                this.posts = this.posts.concat(response.data);
+              }
             })
             .catch(err => {
               if (err.response) {
@@ -147,8 +153,8 @@ export default {
           name: name,
           email: email
         })
-        .then(res => {
-          if (res.status == "200") {
+        .then(response => {
+          if (response.status == 200) {
             //if successful API response then update our variables locally for quick changes not requiring page reload
             //we also save requiring the API to send back redundant data
             this.currentUser.name = name;
@@ -175,8 +181,8 @@ export default {
 
       this.$axios
         .delete(`/api/profile/${id}`)
-        .then(res => {
-          if (res.status == "200") {
+        .then(response => {
+          if (response.status == 200) {
             //if successful API response then log the user out and redirect to home
             this.$store
               .dispatch("updateUser", {
@@ -222,8 +228,8 @@ export default {
       this.apiError = "";
       this.$axios
         .put(`/api/post`, updatedPost)
-        .then(res => {
-          if (res.status == "200") {
+        .then(response => {
+          if (response.status == 200) {
             //on success update the post locally
             this.$set(this.posts, index, updatedPost);
           }
@@ -247,8 +253,8 @@ export default {
 
       this.$axios
         .delete(`/api/post/${PostID}`)
-        .then(res => {
-          if (res.status == "200") {
+        .then(response => {
+          if (response.status == 200) {
             //on success delete the post locally
             this.$delete(this.posts, index);
           }

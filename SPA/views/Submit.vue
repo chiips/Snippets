@@ -83,8 +83,10 @@ export default {
           title: this.title,
           body: this.body
         })
-        .then(() => {
-          this.success = true;
+        .then(response => {
+          if (response.status == 200) {
+            this.success = true;
+          }
         })
         .catch(err => {
           if (err.response) {

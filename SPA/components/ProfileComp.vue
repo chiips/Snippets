@@ -185,10 +185,12 @@ export default {
           }
         })
         .then(response => {
-          //if success then set the avatar to the new file name generated in the API
+          if (response.status == 200) {
+            //if success then set the avatar to the new file name generated in the API
           this.avatar = response.data.avatar;
           this.file = "";
           this.avatarPreview = "";
+          }
         })
         .catch(err => {
           if (err.response) {

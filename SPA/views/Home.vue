@@ -37,7 +37,9 @@ export default {
       this.$axios
         .get(`/api/posts`)
         .then(response => {
-          this.posts = response.data;
+          if (response.status == 200) {
+            this.posts = response.data;
+          }
         })
         .catch(err => {
           if (err.response) {
@@ -66,7 +68,9 @@ export default {
           this.$axios
             .get(`/api/posts?prev=${prevDate}`)
             .then(response => {
-              this.posts = this.posts.concat(response.data);
+              if (response.status == 200) {
+                this.posts = this.posts.concat(response.data);
+              }
             })
             .catch(err => {
               if (err.response) {

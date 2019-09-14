@@ -36,7 +36,9 @@ export default {
       this.$axios
         .get(`/api/search?q=${this.q}`)
         .then(response => {
-          this.users = response.data;
+          if (response.status == 200) {
+            this.users = response.data;
+          }
         })
         .catch(err => {
           if (err.response) {
