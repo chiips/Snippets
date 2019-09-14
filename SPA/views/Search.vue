@@ -65,7 +65,9 @@ export default {
           this.$axios
             .get(`/api/search?prev=${prevDate}&q=${this.q}`)
             .then(response => {
-              this.users = this.users.concat(response.data);
+              if (response.status == 200) {
+                  this.users = this.users.concat(response.data);
+              }
             })
             .catch(err => {
               if (err.response) {
