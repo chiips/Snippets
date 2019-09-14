@@ -23,8 +23,7 @@ type User struct {
 func (db *DB) SearchUsers(query, prevDate string, limit int) ([]*User, error) {
 	users := []*User{}
 
-	rows, err := db.Query("SELECT id, name, avatar, created FROM users WHERE LOWER(name) LIKE LOWER('%' || $1 || '%') AND created < $2 ORDER BY created DESC LIMIT $3", query, prevDate, limit)
-
+	rows, err := db.Query("SELECT id, name, avatar, created FROM users WHERE name ILIKE '%' || $1 || '%' AND created < $2 ORDER BY created DESC LIMIT $3", query, prevDate, limit)
 	if err != nil {
 		return users, err
 	}
