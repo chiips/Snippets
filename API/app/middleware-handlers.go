@@ -20,15 +20,6 @@ const userContextKey contextKey = "userID"
 func (s *Server) authenticateJWT(next hr.Handle) hr.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps hr.Params) {
 
-		//Verify presence of X-REQUEST-ID as an additional security measure.
-		//Javascript can only set custom headers within the same domain.
-		//The absence of this header suggests a threatening request.
-		if requestID := r.Header.Get("X-REQUEST-ID"); requestID == "" {
-			s.Log.Errorln("no X-REQUEST-ID")
-			http.Error(w, http.StatusText(500), http.StatusUnauthorized)
-			return
-		}
-
 		//get the JWT header.payload
 		c1, err := r.Cookie("token-hp")
 		if err != nil {
