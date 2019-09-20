@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div>
     <form v-on:submit.prevent>
       <!-- if there is a new avatar to preview -->
       <div v-if="avatarPreview">
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="error" v-if="apiError">
+      <div v-if="apiError">
         {{ apiError }}
       </div>
 
@@ -46,7 +46,7 @@
 
     <form v-on:submit.prevent>
       <!-- NAME -->
-      <div :class="{ 'is-invalid': submitted && $v.name.$error }">
+      <div>
         <label>Name</label>
         <input v-model.trim="$v.name.$model" :disabled="!editing"/>
       </div>
@@ -59,7 +59,7 @@
       </div>
 
       <!-- EMAIL -->
-      <div :class="{ 'is-invalid': $v.email.$error }">
+      <div>
         <label >Email</label>
         <input v-model.trim="$v.email.$model" :disabled="!editing"
         />
@@ -264,21 +264,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

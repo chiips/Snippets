@@ -6,7 +6,10 @@ This SPA folder contains sample snippets for developing production-quality Singl
 The SPA folder is organized into the following files and folders.
 
 ### App.vue
-App.vue contains the main template for the SPA. The navigation bar routes to all available views and adapts according to the app's state (i.e., whether or not the user is logged in).
+App.vue contains the main template for the SPA. The navigation bar routes to all available views and adapts according to the app's state (i.e., whether or not the user is logged in). For simplicity the App.vue file is the only one containing Bulma classes and custom CSS.
+
+### Assets
+The assets folder contains the main.scss file for importing a CSS framework, in this case Bulma, and defining custom variables for the SPA.
 
 ### Components
 The components folder contains the components for displaying user information and posts.

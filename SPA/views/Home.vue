@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <!-- fill our component with our list of posts -->
     <PostsHomeComp
       v-for="post in posts"
@@ -8,7 +8,7 @@
     >
     </PostsHomeComp>
     <!-- if there's an error getting the data from the API then display an error -->
-    <div class="error" v-if="apiError">
+    <div v-if="apiError">
       {{ apiError }}
     </div>
   </div>

@@ -684,39 +684,18 @@ func (s *Server) deleteUser() hr.Handle {
 			return
 		}
 
-		//check the user's cookies
-		//both cookies had to come in to verify the request, but always check errors.
-		c1, err := r.Cookie("token-hp")
-		if err != nil {
-			//if there's an error then an unauthorized response will prompt the client to redirect the user anyway.
-			s.Log.Errorln(err)
-			http.Error(w, http.StatusText(401), http.StatusUnauthorized)
-			return
-		}
+		//delete any cookies
+		for _, cookie := range r.Cookies() {
 
-		c2, err := r.Cookie("token-s")
-		if err != nil {
-			s.Log.Errorln(err)
-			http.Error(w, http.StatusText(401), http.StatusUnauthorized)
-			return
-		}
+			cookie = &http.Cookie{
+				Name:   cookie.Name,
+				Value:  "",
+				Path:   "/",
+				MaxAge: -1,
+			}
+			http.SetCookie(w, cookie)
 
-		//remove the cookies from the browser
-		c1 = &http.Cookie{
-			Name:   "token-hp",
-			Value:  "",
-			Path:   "/",
-			MaxAge: -1,
 		}
-		http.SetCookie(w, c1)
-
-		c2 = &http.Cookie{
-			Name:   "token-s",
-			Value:  "",
-			Path:   "/",
-			MaxAge: -1,
-		}
-		http.SetCookie(w, c2)
 
 		fmt.Fprint(w, "account successfully deleted.")
 		return

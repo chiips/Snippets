@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+// Set your brand colors
+$purple: rgb(102, 54, 86);
+$gold: rgb(224, 213, 51);
+$grey: rgb(199, 199, 199);
+
+// Update Bulma's global variables
+$primary: $purple;
+$link: $gold;
+
+// Update component variables
+//Box
+$box-background-color: $grey
+
+// Forms
+$input-shadow: none;
+$input-border-color: $purple;
+
+// Navbar
+$navbar-background-color: $grey;
+
+// Import only what you need from Bulma
+@import "~bulma/sass/utilities/_all.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/elements/box.sass";
+@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/image.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/form/_all.sass";
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/tabs.sass";
+@import "~bulma/sass/layout/hero.sass";
+@import "~bulma/sass/layout/section.sass";
+
+//or everything
+//@import "~bulma/css/bulma";

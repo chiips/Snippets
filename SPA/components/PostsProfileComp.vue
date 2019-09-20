@@ -1,18 +1,18 @@
 <template>
   <form v-on:submit.prevent>
     <!-- TITLE -->
-    <div :class="{ 'is-invalid': submitted && $v.title.$error }">
+    <div>
       <input v-model.trim="$v.title.$model" :disabled="!editing"/>
     </div>
-    <div class="error" v-if="submitted && !$v.title.required">
+    <div v-if="submitted && !$v.title.required">
       Title is required.
     </div>
-    <div class="error" v-if="submitted && !$v.title.maxLength">
+    <div v-if="submitted && !$v.title.maxLength">
       Title must be less than {{ $v.title.$params.maxLength.max }} characters.
     </div>
 
     <!-- BODY -->
-    <div :class="{ 'is-invalid': submitted && $v.body.$error }">
+    <div>
 
       <!-- display posts in a textarea that is activated when editing -->
       <textarea-autosize ref="body" v-model.trim="$v.body.$model" :disabled="!editing"
@@ -166,25 +166,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-textarea {
-  box-sizing: border-box;
-  width: 70%;
-}
-</style>

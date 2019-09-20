@@ -1,27 +1,53 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <!-- Visitors can use this form to search users -->
-      <form v-on:submit.prevent="search">
-        <input v-model.trim="q" placeholder="Search..."></input>
-        <button type="submit" v-on:submit.prevent="search" v-on:keyup.enter="search">Search</button>
-      </form>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+  <div id="app" class="has-navbar-fixed-top" >
+    <div class="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
 
-      <!-- if users are logged in then present this menu-->
-      <template v-if="getUser && getCookie">
-        <router-link to="/submit">Submit</router-link> |
-        <router-link :to="{ path: `/profile/${getUser}` }">Profile</router-link>
-        | <router-link to="/logout">Logout</router-link> |
-      </template>
-      <!-- otherwise present this menu -->
-      <template v-else>
-        <router-link to="/signup">Signup</router-link> |
-        <router-link to="/login">Login</router-link>
-      </template>
+      <div class="navbar-brand">
+        <div @click="closeMenu()">
+          <router-link to="/" class="navbar-item" ><img src="@/assets/logo.png"></router-link>
+        </div>
+
+        <div role="button" v-bind:class="[navbarBurger, isActive ? 'is-active' : '']" aria-label="menu" aria-expanded="false" data-target="navMenu" @click="toggleMenu()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
+
+      </div>
+
+
+      <div id="navMenu" v-bind:class="[navbarMenu, isActive ? 'is-active' : '']" @click="closeMenu()">
+        <div class="navbar-start">
+          <form v-on:submit.prevent="search" class="navbar-item is-expanded">
+            <input v-model.trim="q" class="input" type="text">
+            <button type="submit" v-on:submit.prevent="search" v-on:keyup.enter="search" class="button is-primary">Search</button>
+          </form>
+        </div>
+
+        <div class="navbar-end">
+          <router-link to="/" class="navbar-item is-tab">Home</router-link> 
+          <router-link to="/about" class="navbar-item is-tab">About</router-link> 
+
+          <template v-if="getUser">
+            <router-link to="/submit" class="navbar-item is-tab">Submit</router-link> 
+            <router-link :to="{ path: `/profile/${getUser}` }" class="navbar-item is-tab">Profile</router-link> 
+            <router-link to="/logout" class="navbar-item is-tab">Logout</router-link> 
+          </template>
+          <template v-else>
+            <div class="navbar-item">
+              <div class="buttons">
+                <router-link to="/signup" class="button is-link">Sign up</router-link> 
+                <router-link to="/login" class="button is-primary">Log in</router-link> 
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
     </div>
-    <router-view />
+
+    <br>
+
+    <router-view class="section"/>
   </div>
 </template>
 
@@ -34,13 +60,9 @@ export default {
     }
   },
     computed: {
-      //Vuex updates the store on log in. Watch for the user information
+      //Vuex updates the store on log in and out. Watch for the user information
       getUser() {
         return this.$store.getters.getUser;
-      },
-      //There should also be a cookie when logged in. Token-hp is our non-HttpOnly cookie for javascript to access.
-      getCookie() {
-        return this.$cookie.get("token-hp");
       }
     },
   methods: {
@@ -64,29 +86,30 @@ export default {
 </script>
 
 <style>
-/*
-Default Vuejs CSS generated when creating a new project using Vue CLI.
-*/
 
+<style>
+/*
+CSS styles applied to the whole SPA
+*/
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.container {
+  padding-top: 100px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+p {
+  white-space: pre-wrap;
 }
 
+form {
+  width: 50%;
+  margin: auto;
+  text-align: left;
+
+}
 
 </style>

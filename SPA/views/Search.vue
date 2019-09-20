@@ -1,12 +1,12 @@
 <template>
-  <div class="home">
+  <div>
     <SearchAuthorComp
       v-for="user in users"
       v-bind:key="user.id"
       v-bind:authorprop="user"
     >
     </SearchAuthorComp>
-    <div class="error" v-if="apiError">
+    <div v-if="apiError">
       {{ apiError }}
     </div>
   </div>

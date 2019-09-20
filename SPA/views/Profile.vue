@@ -1,7 +1,7 @@
 <template>
-  <div class="profile">
+  <div>
     <!-- pass data into our component as before.
-    this time include update functions that take the event which will be emitted up from within the component -->
+    this time include update functions that receive the event emitted from the component -->
     <ProfileComp
       v-bind:key="currentUser.id"
       v-bind:profileprop="currentUser"
@@ -10,11 +10,11 @@
       v-on:deleteAccount="onDeleteAccount($event)"
     >
     </ProfileComp>
-    <div class="error" v-if="apiError">
+    <div v-if="apiError">
       {{ apiError }}
     </div>
     <hr />
-    <!-- for these update functions also take the index so we can update the data instantly on successful API calls -->
+    <!-- these update functions also receive the index of the edited post so we can update the data instantly on successful API calls -->
     <PostsProfileComp
       v-for="(post, index) in posts"
       v-bind:key="post.id"
@@ -24,7 +24,7 @@
       v-on:deletePost="onDeletePost($event, index)"
     >
     </PostsProfileComp>
-    <div class="error" v-if="apiError">
+    <div v-if="apiError">
       {{ apiError }}
     </div>
   </div>

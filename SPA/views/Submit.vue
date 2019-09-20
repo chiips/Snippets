@@ -11,7 +11,7 @@
     <div v-else>
       <form v-on:submit.prevent="onSubmit">
         <!-- TITLE -->
-        <div :class="{ 'is-invalid': submitted && $v.title.$error }">
+        <div>
           <label>Title</label>
           <input v-model.trim="$v.title.$model" />
         </div>
@@ -23,21 +23,21 @@
         </div>
 
         <!-- BODY -->
-        <div :class="{ 'is-invalid': submitted && $v.body.$error }">
+        <div>
           <label>Body</label>
           <textarea-autosize ref="body" v-model.trim="$v.body.$model"></textarea-autosize>
         </div>
-        <div class="error" v-if="submitted && !$v.body.required">
+        <div v-if="submitted && !$v.body.required">
           Body is required.
         </div>
-        <div class="error" v-if="submitted && !$v.body.maxLength">
+        <div v-if="submitted && !$v.body.maxLength">
           Body must be less than {{ $v.title.$params.maxLength.max }} characters.
         </div>
 
-        <div class="error" v-if="apiError">
+        <div v-if="apiError">
           {{ apiError }}
         </div>
-        <button class="button" type="submit" :disabled="pending">Submit</button>
+        <button type="submit" :disabled="pending">Submit</button>
       </form>
     </div>
   </div>
@@ -111,10 +111,3 @@ export default {
   }
 };
 </script>
-
-<style>
-textarea {
-  box-sizing: border-box;
-  width: 70%;
-}
-</style>

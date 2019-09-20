@@ -42,25 +42,28 @@ Vue.prototype.$axios.interceptors.response.use(
       Vue.prototype.$axios.defaults.headers.common["x-csrf-token"] = csrfToken;
     }
 
-
     //generate random string
-    let requestID =
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15);
+    let requestID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-    //set request id
-    //API will expect custom request id as additional security
-    //Logs will be able to trace requests from SPA to API
+    //set request id to have shared id from SPA to API
     Vue.prototype.$axios.defaults.headers.common["X-REQUEST-ID"] = requestID;
 
     return response;
   },
   //do the same if response is an error
   function(error) {
+
+    //if 401 response then user tried to do something requiring authorization while unauthorized, so redirect to login
+    if (error.response && error.response.status == 401) {
+        //ensure store is empty
+        store.dispatch("updateUser", {
+          userID: ""
+        });
+  
+        //redirect to login
+        router.push({ name: "login" });
+    }
+
     let token = VueCookie.get("token-hp");
     if (token) {
       let id = JSON.parse(window.atob(token.split(".")[1])).id;
@@ -79,17 +82,9 @@ Vue.prototype.$axios.interceptors.response.use(
     }
 
     //generate random string
-    let requestID =
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15);
+    let requestID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-    //set request id
-    //API will expect custom request id as additional security
-    //Logs will be able to trace requests from SPA to API
+    //set request id to have shared id from SPA to API
     Vue.prototype.$axios.defaults.headers.common["X-REQUEST-ID"] = requestID;
   }
 );
