@@ -13,6 +13,6 @@ The SPA folder contains snippets for developing a Single-Page Application in Vue
 The SPA folder contains an additional README.md file further discussing the code.
 
 ## nginx.conf
-The nginx.conf file contains the nginx setup. Nginx is used as a reverse proxy so the SPA and API can easily communicate with each other and send cookies even when hosted on different servers.
+The nginx.conf file contains the nginx setup. Nginx is used as a reverse proxy so the SPA and API can easily communicate with each other and send cookies even when hosted on different servers. The nginx.conf file also includes code to limit the rate of requests to the server.
 
 On initial nginx setup the file comes with additional code which has been removed to highlight what's necessary for a reverse proxy.
