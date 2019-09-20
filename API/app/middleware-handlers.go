@@ -59,14 +59,7 @@ func (s *Server) authenticateJWT(next hr.Handle) hr.Handle {
 			return []byte(os.Getenv("jwt_key")), nil
 		})
 
-		//check validity of the token
-		if !tkn.Valid {
-			s.Log.Errorln(err)
-			http.Error(w, http.StatusText(401), http.StatusUnauthorized)
-			return
-		}
-
-		//catch any errors that might be missed even if the token is valid.
+		//catch any errors
 		if err != nil {
 			if err == jwt.ErrSignatureInvalid {
 				s.Log.Errorln(err)
@@ -75,6 +68,13 @@ func (s *Server) authenticateJWT(next hr.Handle) hr.Handle {
 			}
 			s.Log.Errorln(err)
 			http.Error(w, http.StatusText(400), http.StatusBadRequest)
+			return
+		}
+
+		//check validity of the token
+		if !tkn.Valid {
+			s.Log.Errorln(err)
+			http.Error(w, http.StatusText(401), http.StatusUnauthorized)
 			return
 		}
 
